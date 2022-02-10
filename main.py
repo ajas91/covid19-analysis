@@ -12,7 +12,7 @@ topCountries = data.loc[~(data['continent'].isna())].groupby('location').tail(1)
 plt.style.use('seaborn')
 plt.barh(topCountries['location'],topCountries['total_cases']/1000000)
 
-plt.suptitle('Top 15 Countries with COVID-19 Cases as of 27/02/2022')
+plt.suptitle('Top 15 Countries with COVID-19 Cases as of 27/01/2022')
 plt.ylabel('Country')
 plt.xlabel('Number of Total Cases in Millions')
 
@@ -29,7 +29,7 @@ explode = (0.03,0.03,0.03,0.03,0.03,0.03)
 covidInContinents = data.loc[(data['location'].isin(continents))].groupby('location').tail(1).sort_values(by='total_cases')
 plt.pie(covidInContinents['total_cases'],labels=covidInContinents['location'],autopct='%.1f%%', explode=explode)
 
-plt.suptitle('COVID-19 Cases by continents as of 27/02/2022')
+plt.suptitle('COVID-19 Cases by continents as of 27/01/2022')
 plt.tight_layout()
 
 plt.savefig('figures/byContinents.png')
