@@ -7,7 +7,8 @@ import numpy as np
 data = pd.read_csv('data/owid-covid-data.csv')
 
 # TOP 15 Countries with COVID-19 Cases
-topCountries = data.loc[~(data['continent'].isna())].groupby('location').tail(1).sort_values(by='total_cases',ascending=True).dropna(subset=['total_cases']).tail(15)
+dataWithoutContinent = topCountries = data.loc[~(data['continent'].isna())].groupby('location').tail(1).sort_values(by='total_cases',ascending=True).dropna(subset=['total_cases'])
+topCountries = dataWithoutContinent.tail(15)
 
 plt.style.use('seaborn')
 plt.barh(topCountries['location'],topCountries['total_cases']/1000000)
@@ -33,4 +34,21 @@ plt.suptitle('COVID-19 Cases by continents as of 27/01/2022')
 plt.tight_layout()
 
 plt.savefig('figures/byContinents.png')
+plt.close()
+
+# TOP 15 Countries with COVID-19 Cases
+dataWithoutContinent = topCountries = data.loc[~(data['continent'].isna())].groupby('location').tail(1).sort_values(by='total_cases',ascending=True).dropna(subset=['total_cases'])
+topCountries = dataWithoutContinent.tail(15)
+
+plt.style.use('seaborn')
+plt.barh(topCountries['location'],topCountries['total_cases']/1000000)
+
+plt.suptitle('Top 15 Countries with COVID-19 Cases as of 27/01/2022')
+plt.ylabel('Country')
+plt.xlabel('Number of Total Cases in Millions')
+
+plt.grid(visible=True, which='major', axis='both')
+plt.tight_layout()
+
+plt.savefig('figures/topCountriesIn100.png')
 plt.close()
