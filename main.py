@@ -42,6 +42,7 @@ casesByDensity['cases_density'] = casesByDensity['total_cases']/casesByDensity['
 casesByDensity.sort_values(by='cases_density',inplace=True)
 casesByDensity = casesByDensity.tail(15)
 
+plt.style.use('seaborn')
 plt.barh(casesByDensity['location'],casesByDensity['cases_density']*100)
 plt.ylabel('Country')
 plt.xlabel('Number of Cases in 100 people')
@@ -51,3 +52,47 @@ plt.tight_layout()
 
 plt.savefig('figures/topCountriesIn100.png')
 plt.close()
+
+# Gulf Countries Cases per 100  people
+gulfCountries = ['Oman','Qatar','Bahrain','United Arab Emirates','Kuwait','Saudi Arabia']
+casesInGulf = dataWithoutContinent.loc[(dataWithoutContinent['location'].isin(gulfCountries)),
+                                       ['date','location','total_cases','population']]
+casesInGulf['cases_density'] = casesInGulf['total_cases']/casesInGulf['population']
+casesInGulf.sort_values(by='cases_density',inplace=True)
+
+plt.style.use('seaborn')
+plt.barh(casesInGulf['location'],casesInGulf['cases_density']*100)
+plt.ylabel('Country')
+plt.xlabel('Number of Cases in 100 people')
+
+plt.suptitle('Gulf Countries Cases per 100  people')
+plt.savefig('figures/gulfCountriesDensity.png')
+plt.close()
+
+# Gulf Countries Total Cases
+casesInGulf.sort_values(by='total_cases',inplace=True)
+
+plt.style.use('seaborn')
+plt.barh(casesInGulf['location'],casesInGulf['total_cases']/1000000)
+plt.ylabel('Country')
+plt.xlabel('Number of Total Cases in Million')
+
+plt.suptitle('Gulf Countries Total Cases')
+plt.savefig('figures/gulfCountriesCases.png')
+plt.close()
+
+# Gulf Countries cases Desnsity by date
+fullCasesInGulf = data.loc[(data['location'].isin(gulfCountries))]
+fullCasesInGulf['cases_density'] = fullCasesInGulf['total_cases']/fullCasesInGulf['population']
+
+for country in gulfCountries:
+    tempCases = fullCasesInGulf.loc[fullCasesInGulf['location']==country]
+    plt.plot(tempCases['date'],tempCases['cases_density']*100,label=country)
+
+plt.ylabel('Cases Density')
+plt.xlabel('Date')
+plt.legend()
+plt.grid(visible=True, which='major', axis='both')
+
+plt.suptitle('Gulf Countries Cases per 100  people')
+plt.show()
