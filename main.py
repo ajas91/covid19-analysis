@@ -83,11 +83,10 @@ plt.close()
 
 # Gulf Countries cases Desnsity by date
 fullCasesInGulf = data.loc[(data['location'].isin(gulfCountries))]
-fullCasesInGulf['cases_density'] = fullCasesInGulf['total_cases']/fullCasesInGulf['population']
+fullCasesInGulf['cases_density'] = fullCasesInGulf['total_cases']/fullCasesInGulf['population']*100
 
-for country in gulfCountries:
-    tempCases = fullCasesInGulf.loc[fullCasesInGulf['location']==country]
-    plt.plot(tempCases['date'],tempCases['cases_density']*100,label=country)
+pivotTabCases = fullCasesInGulf.pivot_table(index = 'date',values = 'cases_density',columns= 'location')
+pivotTabCases.plot()
 
 plt.ylabel('Cases Density')
 plt.xlabel('Date')
@@ -95,4 +94,6 @@ plt.legend()
 plt.grid(visible=True, which='major', axis='both')
 
 plt.suptitle('Gulf Countries Cases per 100  people')
-plt.show()
+plt.gcf().autofmt_xdate()
+plt.savefig('figures/gulfCountriesCasesPer100.png')
+plt.close()
