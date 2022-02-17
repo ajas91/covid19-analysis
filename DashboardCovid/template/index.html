@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+    <header>
+        {% load static %}
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="{% static "css/styles.css" %}">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+        <link rel="stylesheet" type="text/css" href="//github.com/downloads/lafeber/world-flags-sprite/flags32.css" />
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+        <script src="https://code.highcharts.com/maps/highmaps.js"></script>
+        <script src="https://code.highcharts.com/maps/modules/data.js"></script>
+        <script src="https://code.highcharts.com/maps/modules/exporting.js"></script>
+        <script src="https://code.highcharts.com/maps/modules/offline-exporting.js"></script>
+        <script src="https://code.highcharts.com/mapdata/custom/world.js"></script>
+        <title>COVID 19 Analysis DashBoard</title>
+    </header>
+
+    <body>
+        <div class="container-fluid"  style="text-align: center;">
+            <div class="row mb-4 bg-success p-2 text-dark bg-opacity-25">
+                <div class="col-2">
+                    <a href="#"><img src="{% static "images/covid19.png" %}" alt="COVID19" /></a>
+                </div>
+                <div class="col-10">
+                    <h3>COVID 19 Analysis Based on Data from <a href="https://www.kaggle.com/georgesaavedra/covid19-dataset" target="_blank">Kaggle</a></h3>
+                    <h5>As of Date</h5>
+                </div>
+            </div>
+
+
+            <div class="row mb-2">
+                <div class="col mr-2 ml-2">
+                    <div class="card" style="height: 8em;">
+                        <div class="card-body">
+                            <h5 class="card-title">Total Cases</h5>
+                            <p>0000</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col mr-2">
+                    <div class="card" style="height: 8em;">
+                        <div class="card-body">
+                            <h5 class="card-title">Total New Cases</h5>
+                            <p>0000</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col mr-2">
+                    <div class="card" style="height: 8em;">
+                        <div class="card-body">
+                            <h5 class="card-title">Country with most Cases</h5>
+                            <p>x</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col mr-2">
+                    <div class="card" style="height: 8em;">
+                        <div class="card-body">
+                            <h5 class="card-title">Country with most Cases to Population</h5>
+                            <p>x</p>                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <hr>
+
+            <div class="row mb-4">
+                <div class="row mb-4 mt-2 align-items-center">
+                    <div class="col-3">
+                        <label for="startDate">Start Date</label>
+                        <input id="startDate" class="form-control" type="date" />
+                    </div>
+                    
+                    <div class="col-3">
+                        <label for="endDate">End Date</label>
+                        <input id="endDate" class="form-control" type="date" />
+                    </div>
+
+                    <div class="col-6">
+                           <button class="btn btn-outline-secondary" type="button" id="compare-btn" style="float: right;">Compare Countries</button> 
+                    </div>
+                </div>
+
+                <div class="row mb-2">
+                    <div id="worldmap"></div>
+                    <!-- <div>
+                        <canvas id="myChart" style="height: 200px;"></canvas>
+                    </div> -->
+                </div>
+            </div>
+        </div>
+
+    </body>
+    
+    <!-- <script>
+        const data = {
+          labels: {{countries|safe}},
+          datasets: [{
+            data: {{counts|safe}},
+            backgroundColor: [
+                'rgb(255, 99, 132)',
+                'rgb(54, 162, 235)',
+                'rgb(255, 205, 86)',
+                'rgb(232,32,12)',
+                'rgb(45,21,43)',
+                'rgb(243,212,42)'
+            ],
+          }]
+        };
+      
+        const config = {
+          type: 'doughnut',
+          data: data,
+        };
+
+        const myChart = new Chart(
+          document.getElementById('myChart'),
+          config
+        );
+      </script> -->
+    <script src="{% static "js/worldmap.js" %}"></script>
+    <!-- <script>
+          Highcharts.getJSON('https://cdn.jsdelivr.net/gh/highcharts/highcharts@v7.0.0/samples/data/world-population-density.json', function (data) {
+
+            // Prevent logarithmic errors in color calulcation
+            data.forEach(function (p) {
+                p.value = (p.value < 1 ? 1 : p.value);
+            });
+
+            // Initialize the chart
+            Highcharts.mapChart('worldmap', {
+
+                chart: {
+                    map: 'custom/world'
+                },
+
+                title: {
+                    text: 'Fixed tooltip with HTML'
+                },
+
+                legend: {
+                    title: {
+                        text: 'Population density per km²',
+                        style: {
+                            color: ( // theme
+                                Highcharts.defaultOptions &&
+                                Highcharts.defaultOptions.legend &&
+                                Highcharts.defaultOptions.legend.title &&
+                                Highcharts.defaultOptions.legend.title.style &&
+                                Highcharts.defaultOptions.legend.title.style.color
+                            ) || 'black'
+                        }
+                    }
+                },
+
+                mapNavigation: {
+                    enabled: true,
+                    buttonOptions: {
+                        verticalAlign: 'bottom'
+                    }
+                },
+
+                tooltip: {
+                    backgroundColor: 'none',
+                    borderWidth: 0,
+                    shadow: false,
+                    useHTML: true,
+                    padding: 0,
+                    pointFormat: '<span class="f32"><span class="flag {point.properties.hc-key}">' +
+                        '</span></span> {point.name}<br>' +
+                        '<span style="font-size:30px">{point.value}/km²</span>',
+                    positioner: function () {
+                        return { x: 0, y: 250 };
+                    }
+                },
+
+                colorAxis: {
+                    min: 1,
+                    max: 1000,
+                    type: 'logarithmic'
+                },
+
+                series: [{
+                    data: data,
+                    joinBy: ['iso-a3', 'code3'],
+                    name: 'Population density',
+                    states: {
+                        hover: {
+                            color: '#a4edba'
+                        }
+                    }
+                }]
+            });
+            });
+
+      </script> -->
+</html>
