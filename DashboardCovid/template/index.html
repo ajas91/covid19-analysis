@@ -13,7 +13,8 @@
         <script src="https://code.highcharts.com/maps/modules/data.js"></script>
         <script src="https://code.highcharts.com/maps/modules/exporting.js"></script>
         <script src="https://code.highcharts.com/maps/modules/offline-exporting.js"></script>
-        <script src="https://code.highcharts.com/mapdata/custom/world.js"></script>
+        <!-- <script src="https://code.highcharts.com/mapdata/custom/world.js"></script> -->
+        <script src="{% static "js/world.js" %}"></script>
         <title>COVID 19 Analysis DashBoard</title>
     </header>
 
@@ -25,7 +26,7 @@
                 </div>
                 <div class="col-10">
                     <h3>COVID 19 Analysis Based on Data from <a href="https://www.kaggle.com/georgesaavedra/covid19-dataset" target="_blank">Kaggle</a></h3>
-                    <h5>As of Date</h5>
+                    <h5>As of Date {{dataDate}}</h5>
                 </div>
             </div>
 
@@ -35,7 +36,7 @@
                     <div class="card" style="height: 8em;">
                         <div class="card-body">
                             <h5 class="card-title">Total Cases</h5>
-                            <p>0000</p>
+                            <span class="number">{{totalCases}}</span>
                         </div>
                     </div>
                 </div>
@@ -44,7 +45,7 @@
                     <div class="card" style="height: 8em;">
                         <div class="card-body">
                             <h5 class="card-title">Total New Cases</h5>
-                            <p>0000</p>
+                            <span class="number">{{newCases}}</span>
                         </div>
                     </div>
                 </div>
@@ -53,7 +54,7 @@
                     <div class="card" style="height: 8em;">
                         <div class="card-body">
                             <h5 class="card-title">Country with most Cases</h5>
-                            <p>x</p>
+                            <span>{{countryWithMostCases}}</span>
                         </div>
                     </div>
                 </div>
@@ -62,7 +63,7 @@
                     <div class="card" style="height: 8em;">
                         <div class="card-body">
                             <h5 class="card-title">Country with most Cases to Population</h5>
-                            <p>x</p>                            
+                            <span>{{countryWithMostCasesDensity}}</span>                           
                         </div>
                     </div>
                 </div>
@@ -125,6 +126,7 @@
         );
       </script> -->
     <script src="{% static "js/worldmap.js" %}"></script>
+    <script src="{% static "js/functions.js" %}"></script>
     <!-- <script>
           Highcharts.getJSON('https://cdn.jsdelivr.net/gh/highcharts/highcharts@v7.0.0/samples/data/world-population-density.json', function (data) {
 
