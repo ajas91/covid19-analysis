@@ -53,13 +53,13 @@ Highcharts.getJSON('https://cdn.jsdelivr.net/gh/highcharts/highcharts@v7.0.0/sam
         },
 
         colorAxis: {
-            min: 1,
-            max: 1000,
+            min: minCases,
+            max: maxCases,
             type: 'logarithmic'
         },
 
         series: [{
-            data: data,
+            data: data2,
             joinBy: ['iso-a3', 'code3'],
             name: 'Total Cases',
             states: {

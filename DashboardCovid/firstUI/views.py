@@ -19,11 +19,15 @@ def indexPage(request):
     countryWithMostCases = dataWithoutWorld['location'].values[-1]
     dataWithoutWorld['cases_density'] = dataWithoutWorld['total_cases']/dataWithoutWorld['population']
     countryWithMostCasesDensity = dataWithoutWorld.sort_values(by='cases_density',ascending=False)['location'].values[0]
+    minCases = dataWithoutWorld['total_cases'].values[0]
+    maxCases = dataWithoutWorld['total_cases'].values[-1]
+
 
     dataWithoutWorld = dataWithoutWorld[['location','iso_code','total_cases']]
     dataWithoutWorld.columns = ['name','code3','value']
     dataWithoutWorld = dataWithoutWorld.merge(formatData)
     mapData = dataWithoutWorld.to_dict('records')
+    countriesList = dataWithoutWorld['name'].to_list()
     # continents = set(data['continent'])
     # covidInContinents = data.loc[(data['location'].isin(continents))].groupby('location').tail(1).sort_values(by='total_cases')
     # countries = covidInContinents['location'].to_list()
@@ -35,5 +39,8 @@ def indexPage(request):
              'mapData':mapData,
              'countryWithMostCases':countryWithMostCases,
              'countryWithMostCasesDensity':countryWithMostCasesDensity,
+             'minCases': minCases,
+             'maxCases': maxCases,
+             'countriesList': countriesList,
              }
     return render(request, 'index.html',context)

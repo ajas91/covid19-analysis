@@ -72,27 +72,32 @@
             <hr>
 
             <div class="row mb-4">
-                <div class="row mb-4 mt-2 align-items-center">
-                    <div class="col-3">
-                        <label for="startDate">Start Date</label>
-                        <input id="startDate" class="form-control" type="date" />
-                    </div>
-                    
-                    <div class="col-3">
-                        <label for="endDate">End Date</label>
-                        <input id="endDate" class="form-control" type="date" />
-                    </div>
-
-                    <div class="col-6">
-                           <button class="btn btn-outline-secondary" type="button" id="compare-btn" style="float: right;">Compare Countries</button> 
-                    </div>
+                <div class="col-3 mr-2">
+                    <h5>List of Countries</h5>
                 </div>
+                <div class="col-9">
+                    <div class="row mb-4 mt-2 align-items-center">
+                        <div class="col-3">
+                            <label for="startDate">Start Date</label>
+                            <input id="startDate" class="form-control" type="date" />
+                        </div>
+                        
+                        <div class="col-3">
+                            <label for="endDate">End Date</label>
+                            <input id="endDate" class="form-control" type="date" />
+                        </div>
 
-                <div class="row mb-2">
-                    <div id="worldmap"></div>
-                    <!-- <div>
-                        <canvas id="myChart" style="height: 200px;"></canvas>
-                    </div> -->
+                        <div class="col-6">
+                            <button class="btn btn-outline-secondary" type="button" id="compare-btn" style="float: right;">Compare Countries</button> 
+                        </div>
+                    </div>
+
+                    <div class="row mb-2">
+                        <div id="worldmap"></div>
+                        <!-- <div>
+                            <canvas id="myChart" style="height: 200px;"></canvas>
+                        </div> -->
+                    </div>
                 </div>
             </div>
         </div>
@@ -125,6 +130,11 @@
           config
         );
       </script> -->
+    <script>
+        var data2 = {{mapData|safe}};
+        var minCases = {{minCases|safe}};
+        var maxCases = {{maxCases|safe}}
+    </script>
     <script src="{% static "js/worldmap.js" %}"></script>
     <script src="{% static "js/functions.js" %}"></script>
     <!-- <script>
