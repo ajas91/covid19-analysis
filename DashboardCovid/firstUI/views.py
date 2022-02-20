@@ -1,3 +1,4 @@
+from turtle import left
 from django.shortcuts import render
 from matplotlib.style import context
 import pandas as pd
@@ -24,10 +25,10 @@ def indexPage(request):
 
 
     dataWithoutWorld = dataWithoutWorld[['location','iso_code','total_cases']]
-    dataWithoutWorld.columns = ['name','code3','value']
-    dataWithoutWorld = dataWithoutWorld.merge(formatData)
+    dataWithoutWorld.columns = ['location','code3','value']
+    dataWithoutWorld = dataWithoutWorld.merge(formatData).drop('location',axis=1)
     mapData = dataWithoutWorld.to_dict('records')
-    countriesList = dataWithoutWorld['name'].to_list()
+    countriesList = dataWithoutWorld.sort_values(by='name')['name'].to_list()
     # continents = set(data['continent'])
     # covidInContinents = data.loc[(data['location'].isin(continents))].groupby('location').tail(1).sort_values(by='total_cases')
     # countries = covidInContinents['location'].to_list()

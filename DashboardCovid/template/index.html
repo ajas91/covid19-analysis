@@ -72,8 +72,15 @@
             <hr>
 
             <div class="row mb-4">
-                <div class="col-3 mr-2">
+                <div class="col-3 mr-2 overflow-scroll" style="height: 500px;">
                     <h5>List of Countries</h5>
+                    {% for item in countriesList %}
+                        <div class="row mb-1" style="width: 60%; margin-left: 20%; margin-right: 20%;">
+                            <button type="button" class="btn btn-outline-secondary btn-wrap-text">
+                                {{ item }}
+                            </button>
+                        </div>
+                    {% endfor %}
                 </div>
                 <div class="col-9">
                     <div class="row mb-4 mt-2 align-items-center">

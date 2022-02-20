@@ -64,7 +64,7 @@ Highcharts.getJSON('https://cdn.jsdelivr.net/gh/highcharts/highcharts@v7.0.0/sam
             name: 'Total Cases',
             states: {
                 hover: {
-                    color: '#a4edba'
+                    color: '#a6cee0'
                 }
             }
         }]

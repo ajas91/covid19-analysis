@@ -27,3 +27,15 @@ a {
 .card {
     height: 8em !important;
 }
+
+.countries{
+    width: 60%;
+    text-align: center; 
+}
+
+.btn-wrap-text {
+    overflow: hidden;
+  white-space: nowrap;
+  display: inline-block;
+  text-overflow: ellipsis;
+}
