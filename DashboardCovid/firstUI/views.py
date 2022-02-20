@@ -48,4 +48,4 @@ def indexPage(request):
 
 
 def indivitualCountryData(request):
-    return render(request,'index.html')
+    return render(request,'countries.html')
