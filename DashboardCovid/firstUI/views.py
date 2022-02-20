@@ -45,3 +45,7 @@ def indexPage(request):
              'countriesList': countriesList,
              }
     return render(request, 'index.html',context)
+
+
+def indivitualCountryData(request):
+    return render(request,'index.html')

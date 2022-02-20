@@ -20,5 +20,6 @@ from firstUI import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    re_path('^$',views.indexPage,name='index')
+    re_path('^$',views.indexPage,name='index'),
+    re_path('selectCountry',views.indivitualCountryData,name="#")
 ]
