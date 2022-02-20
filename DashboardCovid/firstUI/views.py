@@ -2,23 +2,19 @@ from turtle import left
 from django.shortcuts import render
 from matplotlib.style import context
 import pandas as pd
+import firstUI.control as cnt
 
 # Create your views here.
 def indexPage(request):
 
-    data = pd.read_csv('data/owid-covid-data.csv')
-    data.loc[data['location']=='Israel','location']='Palestine' 
     formatData = pd.read_json('https://cdn.jsdelivr.net/gh/highcharts/highcharts@v7.0.0/samples/data/world-population-density.json')
     formatData.drop('value',axis=1,inplace=True)
     formatData.loc[formatData['name']=='Israel','name']='Palestine' 
 
-    dataWithoutWorld = data.copy()
-    dataWithoutWorld = dataWithoutWorld.loc[~(dataWithoutWorld['continent'].isna())].groupby('location').tail(1).sort_values(by='total_cases',ascending=True).dropna(subset=['total_cases'])
-    dataDate = dataWithoutWorld.iloc[0]['date']
+    data, dataWithoutWorld,dataDate = cnt.readData()
     totalCases = data.loc[data['location']=='World','total_cases'].values[-1]
     newCases = data.loc[data['location']=='World','new_cases'].values[-1]
     countryWithMostCases = dataWithoutWorld['location'].values[-1]
-    dataWithoutWorld['cases_density'] = dataWithoutWorld['total_cases']/dataWithoutWorld['population']
     countryWithMostCasesDensity = dataWithoutWorld.sort_values(by='cases_density',ascending=False)['location'].values[0]
     minCases = dataWithoutWorld['total_cases'].values[0]
     maxCases = dataWithoutWorld['total_cases'].values[-1]
@@ -48,4 +44,11 @@ def indexPage(request):
 
 
 def indivitualCountryData(request):
-    return render(request,'countries.html')
+    data, dataWithoutWorld,dataDate = cnt.readData()
+    countryName = request.POST.get('countryName')
+    
+    countryData = data.loc[data['location']==countryName]
+    print(countryData)
+    context={'dataDate':dataDate, 
+            }
+    return render(request,'countries.html',context)
