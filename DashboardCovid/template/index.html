@@ -82,120 +82,16 @@
 
             <div class="row mb-2">
                 <div id="worldmap"></div>
-                <!-- <div>
-                    <canvas id="myChart" style="height: 200px;"></canvas>
-                </div> -->
             </div>
         </div>
     </div>
 {% endblock mainBody %}
    
 {% block scripts %}
-    <!-- <script>
-        const data = {
-          labels: {{countries|safe}},
-          datasets: [{
-            data: {{counts|safe}},
-            backgroundColor: [
-                'rgb(255, 99, 132)',
-                'rgb(54, 162, 235)',
-                'rgb(255, 205, 86)',
-                'rgb(232,32,12)',
-                'rgb(45,21,43)',
-                'rgb(243,212,42)'
-            ],
-          }]
-        };
-      
-        const config = {
-          type: 'doughnut',
-          data: data,
-        };
-
-        const myChart = new Chart(
-          document.getElementById('myChart'),
-          config
-        );
-      </script> -->
     <script>
         var data2 = {{mapData|safe}};
         var minCases = {{minCases|safe}};
         var maxCases = {{maxCases|safe}}
     </script>
     <script src="{% static "js/worldmap.js" %}"></script>
-    <!-- <script>
-          Highcharts.getJSON('https://cdn.jsdelivr.net/gh/highcharts/highcharts@v7.0.0/samples/data/world-population-density.json', function (data) {
-
-            // Prevent logarithmic errors in color calulcation
-            data.forEach(function (p) {
-                p.value = (p.value < 1 ? 1 : p.value);
-            });
-
-            // Initialize the chart
-            Highcharts.mapChart('worldmap', {
-
-                chart: {
-                    map: 'custom/world'
-                },
-
-                title: {
-                    text: 'Fixed tooltip with HTML'
-                },
-
-                legend: {
-                    title: {
-                        text: 'Population density per km²',
-                        style: {
-                            color: ( // theme
-                                Highcharts.defaultOptions &&
-                                Highcharts.defaultOptions.legend &&
-                                Highcharts.defaultOptions.legend.title &&
-                                Highcharts.defaultOptions.legend.title.style &&
-                                Highcharts.defaultOptions.legend.title.style.color
-                            ) || 'black'
-                        }
-                    }
-                },
-
-                mapNavigation: {
-                    enabled: true,
-                    buttonOptions: {
-                        verticalAlign: 'bottom'
-                    }
-                },
-
-                tooltip: {
-                    backgroundColor: 'none',
-                    borderWidth: 0,
-                    shadow: false,
-                    useHTML: true,
-                    padding: 0,
-                    pointFormat: '<span class="f32"><span class="flag {point.properties.hc-key}">' +
-                        '</span></span> {point.name}<br>' +
-                        '<span style="font-size:30px">{point.value}/km²</span>',
-                    positioner: function () {
-                        return { x: 0, y: 250 };
-                    }
-                },
-
-                colorAxis: {
-                    min: 1,
-                    max: 1000,
-                    type: 'logarithmic'
-                },
-
-                series: [{
-                    data: data,
-                    joinBy: ['iso-a3', 'code3'],
-                    name: 'Population density',
-                    states: {
-                        hover: {
-                            color: '#a4edba'
-                        }
-                    }
-                }]
-            });
-            });
-
-      </script> -->
 {% endblock scripts %}

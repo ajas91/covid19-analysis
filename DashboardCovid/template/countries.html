@@ -1,2 +1,37 @@
 {% extends "base.html" %}
 {% load static %}
+
+{% block scriptsCss%}
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+{% endblock scriptsCss%}
+
+
+{% block mainBody %}
+<div class="row mb-2 mt-2">
+    <div class="col-6">
+        <canvas id="totalCases" style="height: 200px;"></canvas>
+    </div>
+    <div class="col-6">
+        <canvas id="newCases" style="height: 200px;"></canvas>
+    </div>
+</div>
+<div class="row mb-2">
+    <div class="col-6">
+        <canvas id="casesPer100" style="height: 200px;"></canvas>
+    </div>
+    <div class="col-6">
+        <canvas id="compareToWorld" style="height: 200px;"></canvas>
+    </div>
+</div>
+{% endblock mainBody %}
+
+{% block scripts %}
+<script>
+    var labelX = {{dateList|safe}};
+ 
+    console.log(labelX)
+    createGraph("totalCases","line",labelX,{{totalCasesValues|safe}},"Total Cases");
+    createGraph("newCases","line",labelX,{{newCasesValues|safe}},"New Cases");
+    createGraph("casesPer100","line",labelX,{{casesPer100|safe}},"Cases Per 100,000");
+</script>
+{% endblock scripts %}

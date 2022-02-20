@@ -43,12 +43,26 @@ def indexPage(request):
     return render(request, 'index.html',context)
 
 
+
+
 def indivitualCountryData(request):
     data, dataWithoutWorld,dataDate = cnt.readData()
     countryName = request.POST.get('countryName')
     
     countryData = data.loc[data['location']==countryName]
-    print(countryData)
+    dateList = countryData['date'].to_list()
+    totalCasesValues = countryData['total_cases'].to_list()
+    newCasesValues = countryData['new_cases'].to_list()
+    casesPer100 = (countryData['new_cases_density']*100000).to_list()
+    countryTotalCount = data.loc[data['location']==countryName,'total_cases'].values[-1]
+    worldCount = data.loc[data['location']=='World','total_cases'].values[-1]
+    print(dateList)
     context={'dataDate':dataDate, 
+             'dateList':dateList,
+             'totalCasesValues':totalCasesValues,
+             'newCasesValues':newCasesValues,
+             'casesPer100':casesPer100,
+             'countryTotalCount':countryTotalCount,
+             'worldCount':worldCount,
             }
     return render(request,'countries.html',context)
