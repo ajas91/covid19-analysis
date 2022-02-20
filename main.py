@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 # Read Covid-19 Dataset
-data = pd.read_csv('data/owid-covid-data.csv')
+data = pd.read_csv('DashboardCovid/data/owid-covid-data.csv')
 formatData = pd.read_json('https://cdn.jsdelivr.net/gh/highcharts/highcharts@v7.0.0/samples/data/world-population-density.json')
 formatData.drop('value',axis=1,inplace=True)
 
@@ -13,6 +13,7 @@ dataWithoutWorld = dataWithoutWorld.loc[~(dataWithoutWorld['continent'].isna())]
 dataDate = dataWithoutWorld.iloc[0]['date']
 total_cases = data.loc[data['location']=='World','total_cases'].values[-1]
 new_cases = data.loc[data['location']=='World','new_cases'].values[-1]
+countryData = data.loc[data['location']=='Oman']
 
 dataWithoutWorld = dataWithoutWorld[['location','iso_code','total_cases']]
 dataWithoutWorld.columns = ['name','code3','value']
@@ -20,6 +21,8 @@ dataWithoutWorld = dataWithoutWorld.merge(formatData)
 
 print(formatData.head(5))
 print(dataWithoutWorld.sort_values(by='name').head(5).to_dict('records'))
+print(countryData.pivot_table(index = 'date',values = 'new_cases').reset_index())
+
 # TOP 15 Countries with COVID-19 Cases
 # dataWithoutContinent = topCountries = data.loc[~(data['continent'].isna())].groupby('location').tail(1).sort_values(by='total_cases',ascending=True).dropna(subset=['total_cases'])
 # topCountries = dataWithoutContinent.tail(15)
