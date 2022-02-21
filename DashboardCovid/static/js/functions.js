@@ -34,8 +34,8 @@ function createGraph(elementID,type,labelX,dataY,graphLabel){
 }
 
 
-numberElementsLength = document.getElementsByClassName("number").length;
+numberElementsLength = document.getElementsByClassName("numberSpan").length;
 for (let i = 0; i < numberElementsLength; i++) {
-    numberElement = document.getElementsByClassName("number")[i].innerHTML;
-    document.getElementsByClassName("number")[i].innerHTML = numberWithCommas(numberElement);
+    numberElement = document.getElementsByClassName("numberSpan")[i].innerHTML;
+    document.getElementsByClassName("numberSpan")[i].innerHTML = numberWithCommas(numberElement);
   }

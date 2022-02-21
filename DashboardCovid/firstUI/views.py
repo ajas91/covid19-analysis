@@ -31,8 +31,8 @@ def indexPage(request):
     # counts = covidInContinents['total_cases'].to_list()
 
     context={'dataDate':dataDate, 
-             'totalCases':totalCases,
-             'newCases':newCases,
+             'totalCases':int(totalCases),
+             'newCases':int(newCases),
              'mapData':mapData,
              'countryWithMostCases':countryWithMostCases,
              'countryWithMostCasesDensity':countryWithMostCasesDensity,

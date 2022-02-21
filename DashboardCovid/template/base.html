@@ -17,7 +17,7 @@
 
     <body>
         <div class="container-fluid"  style="text-align: center;">
-            <div class="row mb-4 bg-success p-2 text-dark bg-opacity-25">
+            <!-- <div class="row mb-4 bg-success p-2 text-dark bg-opacity-25">
                 <div class="col-2">
                     <a href={% url "index" %}><img src="{% static "images/covid19.png" %}" alt="COVID19" /></a>
                 </div>
@@ -25,7 +25,21 @@
                     <h3>COVID 19 Analysis Based on Data from <a href="https://www.kaggle.com/georgesaavedra/covid19-dataset" target="_blank">Kaggle</a></h3>
                     <h5>As of Date {{dataDate}}</h5>
                 </div>
-            </div>
+            </div> -->
+            
+            <nav class="navbar navbar-light bg-light">
+                <div class="container-fluid">
+                    <a class="navbar-brand" href={% url "index" %}>
+                        <img src="{% static "images/covid19.png" %}" alt="COVID19" width="30" height="24" class="d-inline-block align-text-top">
+                    
+                        <span style="text-align: left;">
+                            COVID 19 Analysis Based on Data from Kaggle.com
+                            <!-- <a href="https://www.kaggle.com/georgesaavedra/covid19-dataset" target="_blank">Kaggle</a> -->
+                            as of Date {{dataDate}}
+                        </span>
+                    </a>
+                </div>
+              </nav>
 
             {% block mainBody %}
 
