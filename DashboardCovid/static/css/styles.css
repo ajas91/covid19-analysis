@@ -6,7 +6,7 @@
 
 .highcharts-tooltip > span {
     padding: 10px;
-    white-space: normal !important;
+    white-space: normal;
     width: 200px;
 }
 
@@ -29,10 +29,11 @@ div.card {
 }
 
 div.countries{
-    width: 60%;
+    width: 80%;
     text-align: center; 
-    margin-left: 20%; 
-    margin-right: 20%;
+    white-space:normal;
+    margin-left: 10%; 
+    margin-right: 10%;
 }
 
 .btn-wrap-text {

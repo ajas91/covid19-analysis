@@ -18,10 +18,11 @@ countryData = data.loc[data['location']=='Oman']
 dataWithoutWorld = dataWithoutWorld[['location','iso_code','total_cases']]
 dataWithoutWorld.columns = ['name','code3','value']
 dataWithoutWorld = dataWithoutWorld.merge(formatData)
-
-print(formatData.head(5))
-print(dataWithoutWorld.sort_values(by='name').head(5).to_dict('records'))
-print(countryData.pivot_table(index = 'date',values = 'new_cases').reset_index())
+dataWithoutWorld.sort_values(by='name')['name'].to_clipboard()
+# print(dataWithoutWorld.sort_values(by='name')['name'].to_list())
+# print(formatData.head(5))
+# print(dataWithoutWorld.sort_values(by='name').head(5).to_dict('records'))
+# print(countryData.pivot_table(index = 'date',values = 'new_cases').reset_index())
 
 # TOP 15 Countries with COVID-19 Cases
 # dataWithoutContinent = topCountries = data.loc[~(data['continent'].isna())].groupby('location').tail(1).sort_values(by='total_cases',ascending=True).dropna(subset=['total_cases'])

@@ -22,9 +22,11 @@ def indexPage(request):
 
     dataWithoutWorld = dataWithoutWorld[['location','iso_code','total_cases']]
     dataWithoutWorld.columns = ['location','code3','value']
+    countriesList = dataWithoutWorld.sort_values(by='location')['location'].to_list()
     dataWithoutWorld = dataWithoutWorld.merge(formatData).drop('location',axis=1)
+    dataWithoutWorld.dropna(subset=['value'],inplace=True)
     mapData = dataWithoutWorld.to_dict('records')
-    countriesList = dataWithoutWorld.sort_values(by='name')['name'].to_list()
+    
     # continents = set(data['continent'])
     # covidInContinents = data.loc[(data['location'].isin(continents))].groupby('location').tail(1).sort_values(by='total_cases')
     # countries = covidInContinents['location'].to_list()
@@ -56,7 +58,7 @@ def indivitualCountryData(request):
     casesPer100 = (countryData['new_cases_density']*100000).to_list()
     countryTotalCount = data.loc[data['location']==countryName,'total_cases'].values[-1]
     worldCount = data.loc[data['location']=='World','total_cases'].values[-1]
-    print(dateList)
+
     context={'dataDate':dataDate, 
              'dateList':dateList,
              'totalCasesValues':totalCasesValues,

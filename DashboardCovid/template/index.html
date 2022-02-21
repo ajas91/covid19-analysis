@@ -57,8 +57,8 @@
             <form method="post" enctype="multipart/form-data" action="selectCountry">
                 {% csrf_token %}
                 {% for item in countriesList %}
-                     <div class="row mb-1 countries"> <!--style="width: 60%; margin-left: 20%; margin-right: 20%;"> -->
-                        <input type="submit" value={{item}} name="countryName" class="btn btn-outline-secondary btn-wrap-text">
+                     <div class="row mb-1 countries">
+                        <input type="submit" value="{{item}}" name="countryName" class="btn btn-outline-secondary btn-wrap-text">
                     </div>
                 {% endfor %}
             </form>
