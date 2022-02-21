@@ -38,9 +38,9 @@ div.countries{
 
 .btn-wrap-text {
     overflow: hidden;
-  white-space: nowrap;
-  display: inline-block;
-  text-overflow: ellipsis;
+    white-space: normal;
+    display: inline-block;
+    text-overflow: ellipsis;
 }
 
 span.numberSpan, span.countryName{
