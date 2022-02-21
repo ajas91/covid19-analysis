@@ -24,7 +24,13 @@ function createGraph(elementID,type,labelX,dataY,graphLabel){
     const config = {
       type: type,
       data: data,
-      options:{}
+      options:{
+        elements: {
+          point:{
+            radius: 0
+          }
+        }
+      }
     };
 
     const myChart = new Chart(
