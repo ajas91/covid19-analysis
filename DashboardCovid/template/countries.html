@@ -9,6 +9,9 @@
 {% block mainBody %}
 <div class="col-9">
     <div class="row mb-4 mt-2 align-items-center">
+        <h6>Analysis of {{countryName}}</h6>
+    </div>
+    <div class="row mb-4 align-items-center">
         <div class="col-3">
             <label for="startDate">Start Date</label>
             <input id="startDate" class="form-control" type="date" />
@@ -49,7 +52,73 @@
  
     console.log(labelX)
     createGraph("totalCases","line",labelX,{{totalCasesValues|safe}},"Total Cases");
-    createGraph("newCases","line",labelX,{{newCasesValues|safe}},"New Cases");
+    // createGraph("newCases","line",labelX,{{newCasesValues|safe}},"New Cases");
     createGraph("casesPer100","line",labelX,{{casesPer100|safe}},"Cases Per 100,000");
+    const data = {
+      labels: labelX,
+      datasets: [{
+            label: 'New Cases',
+            backgroundColor: 'rgb(255, 99, 132)',
+            borderColor: 'rgb(255, 99, 132)',
+            data: {{newCasesValues|safe}},
+            yAxisID: 'y',
+        },
+        {
+            label: 'New Deaths',
+            backgroundColor: 'rgb(23, 99, 132)',
+            borderColor: 'rgb(23, 99, 132)',
+            data: {{newDeathsValues|safe}},
+            yAxisID: 'y1',
+        }
+      ]
+    };
+  
+    const config = {
+        type: 'line',
+        data: data,
+        options: {
+            responsive: true,
+            interaction: {
+            mode: 'index',
+            intersect: false,
+            },
+            options:{
+            elements: {
+                point:{
+                    radius: 0
+                    }
+                }
+            },
+            stacked: false,
+            plugins: {
+            title: {
+                display: true,
+                text: 'Chart.js Line Chart - Multi Axis'
+            }
+            },
+            scales: {
+            y: {
+                type: 'linear',
+                display: true,
+                position: 'left',
+            },
+            y1: {
+                type: 'linear',
+                display: true,
+                position: 'right',
+
+                // grid line settings
+                grid: {
+                drawOnChartArea: false, // only want the grid lines for one axis to show up
+                },
+            },
+            }
+        },
+    };
+
+    const myChart = new Chart(
+      document.getElementById("newCases"),
+      config
+    );
 </script>
 {% endblock scripts %}

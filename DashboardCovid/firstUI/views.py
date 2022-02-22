@@ -4,6 +4,8 @@ from matplotlib.style import context
 import pandas as pd
 import firstUI.control as cnt
 
+data, dataWithoutWorld,dataDate = cnt.readData()
+countriesList = dataWithoutWorld.sort_values(by='location')['location'].to_list()
 # Create your views here.
 def indexPage(request):
 
@@ -11,7 +13,6 @@ def indexPage(request):
     formatData.drop('value',axis=1,inplace=True)
     formatData.loc[formatData['name']=='Israel','name']='Palestine' 
 
-    data, dataWithoutWorld,dataDate = cnt.readData()
     totalCases = data.loc[data['location']=='World','total_cases'].values[-1]
     newCases = data.loc[data['location']=='World','new_cases'].values[-1]
     countryWithMostCases = dataWithoutWorld['location'].values[-1]
@@ -20,12 +21,11 @@ def indexPage(request):
     maxCases = dataWithoutWorld['total_cases'].values[-1]
 
 
-    dataWithoutWorld = dataWithoutWorld[['location','iso_code','total_cases']]
-    dataWithoutWorld.columns = ['location','code3','value']
-    countriesList = dataWithoutWorld.sort_values(by='location')['location'].to_list()
-    dataWithoutWorld = dataWithoutWorld.merge(formatData).drop('location',axis=1)
-    dataWithoutWorld.dropna(subset=['value'],inplace=True)
-    mapData = dataWithoutWorld.to_dict('records')
+    dataWithoutWorld_modified = dataWithoutWorld[['location','iso_code','total_cases']]
+    dataWithoutWorld_modified.columns = ['location','code3','value']
+    dataWithoutWorld_modified = dataWithoutWorld_modified.merge(formatData).drop('location',axis=1)
+    dataWithoutWorld_modified.dropna(subset=['value'],inplace=True)
+    mapData = dataWithoutWorld_modified.to_dict('records')
     
     # continents = set(data['continent'])
     # covidInContinents = data.loc[(data['location'].isin(continents))].groupby('location').tail(1).sort_values(by='total_cases')
@@ -48,23 +48,31 @@ def indexPage(request):
 
 
 def indivitualCountryData(request):
-    data, dataWithoutWorld,dataDate = cnt.readData()
     countryName = request.POST.get('countryName')
     
     countryData = data.loc[data['location']==countryName]
     dateList = countryData['date'].to_list()
+    totalCases = countryData['total_cases'].values[-1]
+    newCases = countryData['new_cases'].values[-1]
     totalCasesValues = countryData['total_cases'].to_list()
     newCasesValues = countryData['new_cases'].to_list()
+    countryData['new_deaths'] = countryData['new_deaths'].fillna(value=0)
+    newDeathsValues = countryData['new_deaths'].to_list()
     casesPer100 = (countryData['new_cases_density']*100000).to_list()
     countryTotalCount = data.loc[data['location']==countryName,'total_cases'].values[-1]
     worldCount = data.loc[data['location']=='World','total_cases'].values[-1]
 
     context={'dataDate':dataDate, 
+             'countryName':countryName,
              'dateList':dateList,
+             'totalCases':int(totalCases),
+             'newCases':int(newCases),
              'totalCasesValues':totalCasesValues,
              'newCasesValues':newCasesValues,
+             'newDeathsValues':newDeathsValues,
              'casesPer100':casesPer100,
              'countryTotalCount':countryTotalCount,
              'worldCount':worldCount,
+             'countriesList': countriesList,
             }
     return render(request,'countries.html',context)
