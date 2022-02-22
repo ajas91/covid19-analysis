@@ -10,81 +10,32 @@
     <script src="{% static "js/world.js" %}"></script>
 {% endblock scriptsCss %}
 
+{% block cardsBlock %}
+<div class="col mr-2">
+    <div class="card" style="background-color: #F9E79F;">
+        <div class="card-body" style="color: #9A7D0A;">
+            <h5 class="card-title">Country with most Cases</h5>
+            <span class="countryName">{{countryWithMostCases}}</span>
+        </div>
+    </div>
+</div>
+
+<div class="col mr-2">
+    <div class="card" style="background-color:#F6DDCC ;">
+        <div class="card-body" style="color:#873600;">
+            <h5 class="card-title">Country with most Cases to Population</h5>
+            <span class="countryName">{{countryWithMostCasesDensity}}</span>                           
+        </div>
+    </div>
+</div>
+{% endblock cardsBlock %}
+
 {% block mainBody %}
+<div class="col-9" style="height: 100%;">
     <div class="row mb-2">
-        <div class="col mr-2 ml-2">
-            <div class="card" style="background-color:#c6d8e4;">
-                <div class="card-body" style="color:#1A5276;">
-                    <h5 class="card-title">Total Cases</h5>
-                    <span class="numberSpan" >{{totalCases}}</span>
-                </div>
-            </div>
-        </div>
-
-        <div class="col mr-2">
-            <div class="card" style="background-color: #A9DFBF;">
-                <div class="card-body" style="color:#196F3D;">
-                    <h5 class="card-title" >Total New Cases</h5>
-                    <span class="numberSpan">{{newCases}}</span>
-                </div>
-            </div>
-        </div>
-
-        <div class="col mr-2">
-            <div class="card" style="background-color: #F9E79F;">
-                <div class="card-body" style="color: #9A7D0A;">
-                    <h5 class="card-title">Country with most Cases</h5>
-                    <span class="countryName">{{countryWithMostCases}}</span>
-                </div>
-            </div>
-        </div>
-
-        <div class="col mr-2">
-            <div class="card" style="background-color:#F6DDCC ;">
-                <div class="card-body" style="color:#873600;">
-                    <h5 class="card-title">Country with most Cases to Population</h5>
-                    <span class="countryName">{{countryWithMostCasesDensity}}</span>                           
-                </div>
-            </div>
-        </div>
+        <div id="worldmap"></div>
     </div>
-
-    <hr>
-
-    <div class="row mb-4">
-        <div class="col-3 mr-2 overflow-scroll" style="height: 500px;">
-            <h5>List of Countries</h5>
-            <form method="post" enctype="multipart/form-data" action="selectCountry">
-                {% csrf_token %}
-                {% for item in countriesList %}
-                     <div class="row mb-1 countries">
-                        <input type="submit" value="{{item}}" name="countryName" class="btn btn-outline-secondary btn-wrap-text">
-                    </div>
-                {% endfor %}
-            </form>
-        </div>
-        <div class="col-9" style="height: 500px;">
-            <div class="row mb-4 mt-2 align-items-center">
-                <div class="col-3">
-                    <label for="startDate">Start Date</label>
-                    <input id="startDate" class="form-control" type="date" />
-                </div>
-                
-                <div class="col-3">
-                    <label for="endDate">End Date</label>
-                    <input id="endDate" class="form-control" type="date" />
-                </div>
-
-                <div class="col-6">
-                    <button class="btn btn-outline-secondary" type="button" id="compare-btn" style="float: right;">Compare Countries</button> 
-                </div>
-            </div>
-
-            <div class="row mb-2">
-                <div id="worldmap"></div>
-            </div>
-        </div>
-    </div>
+</div>
 {% endblock mainBody %}
    
 {% block scripts %}

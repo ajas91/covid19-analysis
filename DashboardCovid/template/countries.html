@@ -7,20 +7,38 @@
 
 
 {% block mainBody %}
-<div class="row mb-2 mt-2">
-    <div class="col-6">
-        <canvas id="totalCases" style="height: 200px;"></canvas>
+<div class="col-9">
+    <div class="row mb-4 mt-2 align-items-center">
+        <div class="col-3">
+            <label for="startDate">Start Date</label>
+            <input id="startDate" class="form-control" type="date" />
+        </div>
+        
+        <div class="col-3">
+            <label for="endDate">End Date</label>
+            <input id="endDate" class="form-control" type="date" />
+        </div>
+
+        <div class="col-6">
+            <button class="btn btn-outline-secondary" type="button" id="compare-btn" style="float: right;">Compare Countries</button> 
+        </div>
     </div>
-    <div class="col-6">
-        <canvas id="newCases" style="height: 200px;"></canvas>
+
+    <div class="row mb-2 mt-2">
+        <div class="col-6">
+            <canvas id="totalCases" style="height: 200px;"></canvas>
+        </div>
+        <div class="col-6">
+            <canvas id="newCases" style="height: 200px;"></canvas>
+        </div>
     </div>
-</div>
-<div class="row mb-2">
-    <div class="col-6">
-        <canvas id="casesPer100" style="height: 200px;"></canvas>
-    </div>
-    <div class="col-6">
-        <canvas id="compareToWorld" style="height: 200px;"></canvas>
+    <div class="row mb-2">
+        <div class="col-6">
+            <canvas id="casesPer100" style="height: 200px;"></canvas>
+        </div>
+        <div class="col-6">
+            <canvas id="compareToWorld" style="height: 200px;"></canvas>
+        </div>
     </div>
 </div>
 {% endblock mainBody %}
