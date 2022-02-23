@@ -2,7 +2,7 @@ from turtle import left
 from django.shortcuts import render
 from matplotlib.style import context
 import pandas as pd
-import firstUI.control as cnt
+import analysisUI.control as cnt
 
 data, dataWithoutWorld,dataDate = cnt.readData()
 countriesList = dataWithoutWorld.sort_values(by='location')['location'].to_list()
@@ -49,6 +49,9 @@ def indexPage(request):
 
 def indivitualCountryData(request):
     countryName = request.POST.get('countryName')
+    startDate = request.POST.get('startDate')
+    print(startDate)
+    print(countryName)
     
     countryData = data.loc[data['location']==countryName]
     dateList = countryData['date'].to_list()
@@ -56,7 +59,7 @@ def indivitualCountryData(request):
     newCases = countryData['new_cases'].values[-1]
     totalCasesValues = countryData['total_cases'].to_list()
     newCasesValues = countryData['new_cases'].to_list()
-    countryData['new_deaths'] = countryData['new_deaths'].fillna(value=0)
+    countryData[['new_deaths']] = countryData[['new_deaths']].fillna(value=0)
     newDeathsValues = countryData['new_deaths'].to_list()
     casesPer100 = (countryData['new_cases_density']*100000).to_list()
     countryTotalCount = data.loc[data['location']==countryName,'total_cases'].values[-1]

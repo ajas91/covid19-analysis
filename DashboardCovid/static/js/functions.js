@@ -21,6 +21,10 @@ function createGraph(elementID,type,labelX,dataY,graphLabel){
           point:{
             radius: 0
           }
+        },
+        title: {
+          display: true,
+          text: graphLabel
         }
       }
     };

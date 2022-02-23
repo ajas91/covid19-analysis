@@ -12,19 +12,22 @@
         <h6>Analysis of {{countryName}}</h6>
     </div>
     <div class="row mb-4 align-items-center">
-        <div class="col-3">
-            <label for="startDate">Start Date</label>
-            <input id="startDate" class="form-control" type="date" />
-        </div>
-        
-        <div class="col-3">
-            <label for="endDate">End Date</label>
-            <input id="endDate" class="form-control" type="date" />
-        </div>
+        <form action="" method="post" enctype="multipart/form-data" action="selectCountry">
+            {% csrf_token %}
+            <div class="col-3">
+                <label for="startDate">Start Date</label>
+                <input id="startDate" class="form-control" type="date" />
+            </div>
+            
+            <div class="col-3">
+                <label for="endDate">End Date</label>
+                <input id="endDate" class="form-control" type="date" />
+            </div>
 
-        <div class="col-6">
-            <button class="btn btn-outline-secondary" type="button" id="compare-btn" style="float: right;">Compare Countries</button> 
-        </div>
+            <div class="col-6">
+                <button class="btn btn-outline-secondary" type="button" id="compare-btn" style="float: right;">Compare Countries</button> 
+            </div>
+        </form>
     </div>
 
     <div class="row mb-2 mt-2">
