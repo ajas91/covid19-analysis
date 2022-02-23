@@ -42,7 +42,7 @@ def indexPage(request):
              'maxCases': maxCases,
              'countriesList': countriesList,
              }
-    return render(request, 'index.html',context)
+    return render(request, 'analysisUI/index.html',context)
 
 
 
@@ -78,4 +78,4 @@ def indivitualCountryData(request):
              'worldCount':worldCount,
              'countriesList': countriesList,
             }
-    return render(request,'countries.html',context)
+    return render(request,'analysisUI/countries.html',context)
