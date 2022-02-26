@@ -1,3 +1,4 @@
+from itertools import count
 from turtle import left
 from django.shortcuts import render
 from matplotlib.style import context
@@ -47,8 +48,12 @@ def indexPage(request):
 
 
 
-def indivitualCountryData(request):
-    countryName = request.POST.get('countryName')
+def indivitualCountryData(request, country):
+    print(request.POST.get('countryName'))
+    if request.POST.get('countryName'):
+        countryName = request.POST.get('countryName')
+    else:
+        countryName = country
     startDate = request.POST.get('startDate')
     print(startDate)
     print(countryName)

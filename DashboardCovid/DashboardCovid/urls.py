@@ -21,6 +21,6 @@ import analysisUI
 urlpatterns = [
     path('admin/', admin.site.urls),
     re_path('^$',analysisUI.views.indexPage,name='index'),
-    # re_path('selectCountry',views.indivitualCountryData,name='countries')
-    re_path('^selectCountry/',include(analysisUI.urls))
+    path('<str:country>',analysisUI.views.indivitualCountryData)#,name='countries')
+    # re_path('/<str:country>/',include(analysisUI.urls))
 ]

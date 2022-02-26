@@ -11,8 +11,8 @@
     <div class="row mb-4 mt-2 align-items-center">
         <h6>Analysis of {{countryName}}</h6>
     </div>
-    <div class="row mb-4 align-items-center">
-        <form action="" method="post" enctype="multipart/form-data" action="selectCountry">
+    <div class="row mb-4">
+        <form action="" method="post" enctype="multipart/form-data">
             {% csrf_token %}
             <div class="col-3">
                 <label for="startDate">Start Date</label>
@@ -24,7 +24,7 @@
                 <input id="endDate" class="form-control" type="date" />
             </div>
 
-            <div class="col-6">
+            <div class="col-3">
                 <button class="btn btn-outline-secondary" type="button" id="compare-btn" style="float: right;">Compare Countries</button> 
             </div>
         </form>
