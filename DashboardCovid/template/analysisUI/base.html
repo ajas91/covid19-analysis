@@ -67,7 +67,7 @@
                         <div class="row mb-2">
                             <div class="col-3 mr-2 overflow-scroll" style="height: 400px;">
                                 <h5>List of Countries</h5>
-                                <form method="post" enctype="multipart/form-data" action="{% url views.indivitualCountryData countryName %}">
+                                <form method="post" enctype="multipart/form-data" action="{% url "country" "{{countryName}}" %}">
                                     {% csrf_token %}
                                     {% for item in countriesList %}
                                          <div class="row mb-1 countries">

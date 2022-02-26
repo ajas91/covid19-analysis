@@ -27,11 +27,7 @@ def indexPage(request):
     dataWithoutWorld_modified = dataWithoutWorld_modified.merge(formatData).drop('location',axis=1)
     dataWithoutWorld_modified.dropna(subset=['value'],inplace=True)
     mapData = dataWithoutWorld_modified.to_dict('records')
-    
-    # continents = set(data['continent'])
-    # covidInContinents = data.loc[(data['location'].isin(continents))].groupby('location').tail(1).sort_values(by='total_cases')
-    # countries = covidInContinents['location'].to_list()
-    # counts = covidInContinents['total_cases'].to_list()
+    countryName = ""
 
     context={'dataDate':dataDate, 
              'totalCases':int(totalCases),
@@ -42,6 +38,7 @@ def indexPage(request):
              'minCases': minCases,
              'maxCases': maxCases,
              'countriesList': countriesList,
+             'countryName':countryName
              }
     return render(request, 'analysisUI/index.html',context)
 
@@ -49,15 +46,12 @@ def indexPage(request):
 
 
 def indivitualCountryData(request, country):
-    print(request.POST.get('countryName'))
     if request.POST.get('countryName'):
         countryName = request.POST.get('countryName')
     else:
         countryName = country
+
     startDate = request.POST.get('startDate')
-    print(startDate)
-    print(countryName)
-    
     countryData = data.loc[data['location']==countryName]
     dateList = countryData['date'].to_list()
     totalCases = countryData['total_cases'].values[-1]
